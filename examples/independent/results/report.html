@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SYNTHETIC EXAMPLE — independent patient cohort — MedCohortKit</title>
+<style>
+:root{--ink:#183742;--muted:#607882;--accent:#156777;--line:#dbe6e9;--paper:#fff;--bg:#f3f7f7}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:1240px;margin:auto;padding:38px 24px 60px}header{padding:26px 0 28px;border-bottom:3px solid var(--accent)}
+.brand{font-size:13px;letter-spacing:.13em;font-weight:750;color:var(--accent)}h1{font-size:31px;line-height:1.25;margin:16px 0}
+.intro{color:var(--muted);max-width:900px}.metrics{display:flex;gap:16px;flex-wrap:wrap;margin:24px 0}
+.metric{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 22px;min-width:170px}
+.metric strong{display:block;font-size:27px}.metric span{color:var(--muted);font-size:13px}
+section{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:24px;margin:22px 0;overflow-x:auto}
+h2{font-size:20px;margin:0 0 16px}p{margin:10px 0}table{border-collapse:collapse;font-size:12px;width:100%;white-space:normal}
+th{background:#eaf2f4;text-align:left;padding:10px;border-bottom:2px solid #b9cfd5;overflow-wrap:anywhere}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;min-width:60px;overflow-wrap:anywhere}
+tr:nth-child(even){background:#fafcfc}ul{color:var(--muted);font-size:13px;padding-left:20px}li{margin:7px 0}
+.forest{width:100%;max-width:900px;display:block;margin:10px 0 24px}code{font-size:12px;overflow-wrap:anywhere}a{color:var(--accent)}
+footer{font-size:12px;color:var(--muted)}@media print{body{background:white}main{max-width:none;padding:0}section{border-radius:0;break-inside:avoid}}
+</style></head><body><main>
+<header><div class="brand">MEDCOHORTKIT · REPRODUCIBLE RESEARCH</div><h1>SYNTHETIC EXAMPLE — independent patient cohort</h1>
+<p class="intro">Local, auditable cohort statistics. Tables report their denominators; models report their uncertainty method. "Significant" does not by itself establish clinical importance or causality.</p></header>
+<div class="metrics"><div class="metric"><strong>160</strong><span>Observation rows / 观测记录</span></div>
+<div class="metric"><strong>160</strong><span>Unique subjects / 独立编号数</span></div>
+<div class="metric"><strong>0</strong><span>Additional rows per subject / 重复记录</span></div>
+<div class="metric"><strong>v0.1.0</strong><span>Analysis package / 工具版本</span></div></div>
+<section><h2>01 · Cohort description / 基线描述</h2><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>level</th>
+      <th>overall</th>
+      <th>Group 1: Control</th>
+      <th>Group 2: Intervention</th>
+      <th>missing_overall</th>
+      <th>missing_group_1</th>
+      <th>missing_group_2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>N (rows)</td>
+      <td></td>
+      <td>160</td>
+      <td>77</td>
+      <td>83</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>mean (SD)</td>
+      <td>64.44 (6.59); n=160</td>
+      <td>64.26 (6.68); n=77</td>
+      <td>64.60 (6.55); n=83</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>median [Q1, Q3]</td>
+      <td>64.56 [60.12, 68.59]; n=160</td>
+      <td>64.34 [59.53, 67.84]; n=77</td>
+      <td>64.59 [61.13, 68.95]; n=83</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>bmi</td>
+      <td>mean (SD)</td>
+      <td>26.17 (2.88); n=158</td>
+      <td>25.83 (2.86); n=77</td>
+      <td>26.50 (2.88); n=81</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>bmi</td>
+      <td>median [Q1, Q3]</td>
+      <td>26.20 [24.17, 27.97]; n=158</td>
+      <td>26.04 [23.91, 27.42]; n=77</td>
+      <td>26.29 [24.26, 28.40]; n=81</td>
+      <td>2</td>
+      <td>0</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>oks_pre</td>
+      <td>mean (SD)</td>
+      <td>24.49 (6.24); n=160</td>
+      <td>24.03 (6.29); n=77</td>
+      <td>24.93 (6.20); n=83</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>oks_pre</td>
+      <td>median [Q1, Q3]</td>
+      <td>24.21 [20.16, 28.87]; n=160</td>
+      <td>23.22 [19.75, 26.58]; n=77</td>
+      <td>25.19 [20.55, 29.84]; n=83</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>oks_post</td>
+      <td>mean (SD)</td>
+      <td>31.77 (5.45); n=159</td>
+      <td>30.48 (5.59); n=76</td>
+      <td>32.95 (5.07); n=83</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>oks_post</td>
+      <td>median [Q1, Q3]</td>
+      <td>31.37 [28.51, 34.67]; n=159</td>
+      <td>29.81 [26.48, 33.60]; n=76</td>
+      <td>32.36 [29.66, 35.25]; n=83</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>sex</td>
+      <td>Female</td>
+      <td>85/159 (53.5%)</td>
+      <td>36/76 (47.4%)</td>
+      <td>49/83 (59.0%)</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>sex</td>
+      <td>Male</td>
+      <td>74/159 (46.5%)</td>
+      <td>40/76 (52.6%)</td>
+      <td>34/83 (41.0%)</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table><ul><li>Counts describe rows, not necessarily independent patients.</li><li>Continuous summaries use variable-wise nonmissing observations; SD is the sample SD (ddof=1).</li><li>Categorical cells are count/nonmissing denominator (percentage). Missing values are shown separately.</li><li>This descriptive table contains no hypothesis tests. Group order is recorded in group_labels.</li></ul></section><section><h2>02 · Prespecified comparisons / 组间比较</h2><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>variable</th>
+      <th>kind</th>
+      <th>group_1</th>
+      <th>group_2</th>
+      <th>n1</th>
+      <th>n2</th>
+      <th>test</th>
+      <th>estimate</th>
+      <th>ci_low</th>
+      <th>ci_high</th>
+      <th>p_value</th>
+      <th>p_adjusted</th>
+      <th>notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>age</td>
+      <td>continuous</td>
+      <td>Control</td>
+      <td>Intervention</td>
+      <td>77</td>
+      <td>83</td>
+      <td>Welch t-test (two-sided)</td>
+      <td>0.3423</td>
+      <td>-1.7251</td>
+      <td>2.4098</td>
+      <td>0.7441</td>
+      <td>0.7441</td>
+      <td>Estimate is mean(group_2) - mean(group_1); unadjusted 95% Welch CI. Missing excluded by variable: group_1=0, group_2=0.</td>
+    </tr>
+    <tr>
+      <td>bmi</td>
+      <td>continuous</td>
+      <td>Control</td>
+      <td>Intervention</td>
+      <td>77</td>
+      <td>81</td>
+      <td>Welch t-test (two-sided)</td>
+      <td>0.6751</td>
+      <td>-0.2268</td>
+      <td>1.5770</td>
+      <td>0.1413</td>
+      <td>0.2578</td>
+      <td>Estimate is mean(group_2) - mean(group_1); unadjusted 95% Welch CI. Missing excluded by variable: group_1=0, group_2=2.</td>
+    </tr>
+    <tr>
+      <td>oks_pre</td>
+      <td>continuous</td>
+      <td>Control</td>
+      <td>Intervention</td>
+      <td>77</td>
+      <td>83</td>
+      <td>Welch t-test (two-sided)</td>
+      <td>0.8984</td>
+      <td>-1.0541</td>
+      <td>2.8508</td>
+      <td>0.3648</td>
+      <td>0.4560</td>
+      <td>Estimate is mean(group_2) - mean(group_1); unadjusted 95% Welch CI. Missing excluded by variable: group_1=0, group_2=0.</td>
+    </tr>
+    <tr>
+      <td>oks_post</td>
+      <td>continuous</td>
+      <td>Control</td>
+      <td>Intervention</td>
+      <td>76</td>
+      <td>83</td>
+      <td>Welch t-test (two-sided)</td>
+      <td>2.4753</td>
+      <td>0.7981</td>
+      <td>4.1525</td>
+      <td>0.0041</td>
+      <td>0.0204</td>
+      <td>Estimate is mean(group_2) - mean(group_1); unadjusted 95% Welch CI. Missing excluded by variable: group_1=1, group_2=0.</td>
+    </tr>
+    <tr>
+      <td>sex</td>
+      <td>categorical</td>
+      <td>Control</td>
+      <td>Intervention</td>
+      <td>76</td>
+      <td>83</td>
+      <td>Fisher exact (two-sided)</td>
+      <td>0.6264</td>
+      <td>0.3177</td>
+      <td>1.2262</td>
+      <td>0.1547</td>
+      <td>0.2578</td>
+      <td>Conditional odds ratio for group_2 versus group_1; event='Male', reference category='Female'; unadjusted 95% exact conditional CI. Category ordering is natural sort (mixed types use type/name sort); read the event label before interpreting. Missing excluded by variable: group_1=1, group_2=0.</td>
+    </tr>
+  </tbody>
+</table><ul><li>Independent observations are required; independence cannot be established without design information.</li><li>Subject IDs were checked for uniqueness.</li><li>Missing values are excluded separately for each variable; missingness can bias inference.</li><li>Multiplicity adjustment: fdr_bh across the 5 finite p-values in this call.</li><li>Benjamini-Hochberg requires independent or suitably positively dependent tests; Benjamini-Yekutieli allows arbitrary dependence.</li><li>All tests are two-sided. Confidence intervals are 95% and are not multiplicity-adjusted.</li></ul></section><section><h2>03 · Adjusted linear model / 多元线性回归</h2><p><strong>HC3</strong> covariance · 156 complete observations · 4 omitted · inference df = 150</p><p>Reference categories: {&#x27;group&#x27;: &#x27;Control&#x27;, &#x27;sex&#x27;: &#x27;Female&#x27;}</p><img class="forest" src="forest.svg" alt="Regression coefficients with 95% confidence intervals"><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>term</th>
+      <th>estimate</th>
+      <th>std_error</th>
+      <th>ci_low</th>
+      <th>ci_high</th>
+      <th>p_value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Intercept</td>
+      <td>29.2200</td>
+      <td>3.9530</td>
+      <td>21.4093</td>
+      <td>37.0307</td>
+      <td>9.439e-12</td>
+    </tr>
+    <tr>
+      <td>group[Intervention]</td>
+      <td>1.9103</td>
+      <td>0.5987</td>
+      <td>0.7273</td>
+      <td>3.0933</td>
+      <td>0.0017</td>
+    </tr>
+    <tr>
+      <td>oks_pre</td>
+      <td>0.6448</td>
+      <td>0.0559</td>
+      <td>0.5344</td>
+      <td>0.7552</td>
+      <td>1.856e-22</td>
+    </tr>
+    <tr>
+      <td>age</td>
+      <td>-0.1481</td>
+      <td>0.0426</td>
+      <td>-0.2323</td>
+      <td>-0.0638</td>
+      <td>0.0007</td>
+    </tr>
+    <tr>
+      <td>bmi</td>
+      <td>-0.1640</td>
+      <td>0.1003</td>
+      <td>-0.3622</td>
+      <td>0.0343</td>
+      <td>0.1043</td>
+    </tr>
+    <tr>
+      <td>sex[Male]</td>
+      <td>-0.7717</td>
+      <td>0.6184</td>
+      <td>-1.9935</td>
+      <td>0.4501</td>
+      <td>0.2140</td>
+    </tr>
+  </tbody>
+</table><ul><li>Complete-case analysis; missing data were not imputed.</li><li>Coefficients describe associations. Covariance correction does not resolve confounding or model misspecification.</li><li>Inspect linearity, influential observations, and residuals before scientific interpretation.</li></ul></section><section><h2>04 · Measurement reliability / 测量一致性</h2><table class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>type</th>
+      <th>icc</th>
+      <th>ci_low</th>
+      <th>ci_high</th>
+      <th>n_subjects</th>
+      <th>n_raters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ICC(A,1)</td>
+      <td>0.9679</td>
+      <td>0.9562</td>
+      <td>0.9759</td>
+      <td>159</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>ICC(A,k)</td>
+      <td>0.9837</td>
+      <td>0.9776</td>
+      <td>0.9878</td>
+      <td>159</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table><ul><li>Absolute-agreement ANOVA point estimators equivalent to ICC(2,1) and ICC(2,k).</li><li>95% percentile bootstrap resamples complete subject rows with replacement, holding raters fixed.</li><li>Intervals are conditional on the observed raters, not analytic F-based intervals for random-rater generalization.</li><li>Listwise deletion of incomplete ratings; no imputation.</li><li>Subjects must be independent. Single and average-measure ICC answer different reliability questions.</li></ul></section><section><h2>Reproducibility / 可复现记录</h2><p>Input SHA-256: <code>e2470677f1630719162bc03beb7e309945b77f673b9dab014cb0175b1f0f1eb5</code></p><p>The full configuration, dependency versions, analysis choices, and numerical results are in <a href="audit.json">audit.json</a>.</p><ul><li>This report contains aggregate research results; review it before sharing.</li><li>Missingness is reported per analysis. Complete-case analysis can be biased when missingness is informative.</li><li>No normality test, p-value threshold, or automatic covariate selection determines the analysis method.</li></ul></section><footer>Generated 2026-10-21T16:35:29.831743+00:00. MedCohortKit is an early-stage research tool; study-design and method suitability require scientific review.</footer>
+</main></body></html>
