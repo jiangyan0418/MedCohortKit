@@ -1,0 +1,46 @@
+{
+  "title": "SYNTHETIC EXAMPLE — independent patient cohort",
+  "subject_id": "patient_id",
+  "group": "group",
+  "group_order": [
+    "Control",
+    "Intervention"
+  ],
+  "continuous": [
+    "age",
+    "bmi",
+    "oks_pre",
+    "oks_post"
+  ],
+  "categorical": [
+    "sex"
+  ],
+  "comparisons": {
+    "enabled": true,
+    "continuous_test": "welch",
+    "adjust_method": "fdr_bh"
+  },
+  "linear": {
+    "outcome": "oks_post",
+    "predictors": [
+      "group",
+      "oks_pre",
+      "age",
+      "bmi",
+      "sex"
+    ],
+    "categorical": [
+      "group",
+      "sex"
+    ]
+  },
+  "icc": {
+    "raters": [
+      "alpha_rater1",
+      "alpha_rater2"
+    ],
+    "subject_id": "patient_id",
+    "n_boot": 2000,
+    "seed": 20261022
+  }
+}
