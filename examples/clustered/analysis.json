@@ -1,0 +1,37 @@
+{
+  "title": "SYNTHETIC EXAMPLE — bilateral knee cohort",
+  "subject_id": "patient_id",
+  "group": "group",
+  "group_order": [
+    "Control",
+    "Intervention"
+  ],
+  "continuous": [
+    "age",
+    "bmi",
+    "oks_pre",
+    "oks_post"
+  ],
+  "categorical": [
+    "sex"
+  ],
+  "comparisons": {
+    "enabled": false,
+    "continuous_test": "welch",
+    "adjust_method": "fdr_bh"
+  },
+  "linear": {
+    "outcome": "oks_post",
+    "predictors": [
+      "group",
+      "oks_pre",
+      "age",
+      "bmi",
+      "sex"
+    ],
+    "categorical": [
+      "group",
+      "sex"
+    ]
+  }
+}
