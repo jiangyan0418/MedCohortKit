@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "medcohortkit"
+version = "0.1.0"
+description = "Reproducible clinical cohort statistics with explicit missingness and patient-clustered inference"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "MedCohortKit contributors"}]
+keywords = ["clinical-research", "statistics", "cohort", "ICC", "orthopedics"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+  "numpy>=1.26,<3",
+  "pandas>=2.2,<3",
+  "scipy>=1.11,<2",
+  "statsmodels>=0.14.6,<0.15",
+  "matplotlib>=3.8,<4",
+]
+
+[project.optional-dependencies]
+excel = ["openpyxl>=3.1,<4"]
+dev = ["build>=1.2"]
+
+[project.scripts]
+medcohort = "medcohortkit.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
