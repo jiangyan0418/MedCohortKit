@@ -1,0 +1,298 @@
+{
+  "schema_version": "1.0",
+  "package": "medcohortkit",
+  "version": "0.1.0",
+  "generated_at_utc": "2026-10-21T16:35:30.654276+00:00",
+  "input": {
+    "sha256": "29edeb92d6cc64ea5a40a14219bc42dc8ad60b46b255d6e2e18556ddc5cb4146",
+    "n_rows": 176,
+    "n_subjects": 160,
+    "repeated_rows": 16
+  },
+  "config_sha256": "3604667cf5ece11ff52277dac902e6e4c4fa3cbb32a15f3ca3c2de8b9f1511b6",
+  "config": {
+    "title": "SYNTHETIC EXAMPLE — bilateral knee cohort",
+    "subject_id": "patient_id",
+    "group": "group",
+    "group_order": [
+      "Control",
+      "Intervention"
+    ],
+    "continuous": [
+      "age",
+      "bmi",
+      "oks_pre",
+      "oks_post"
+    ],
+    "categorical": [
+      "sex"
+    ],
+    "comparisons": {
+      "enabled": false,
+      "continuous_test": "welch",
+      "adjust_method": "fdr_bh"
+    },
+    "linear": {
+      "outcome": "oks_post",
+      "predictors": [
+        "group",
+        "oks_pre",
+        "age",
+        "bmi",
+        "sex"
+      ],
+      "categorical": [
+        "group",
+        "sex"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.12.14",
+    "dependencies": {
+      "numpy": "2.3.5",
+      "pandas": "2.2.3",
+      "scipy": "1.17.0",
+      "statsmodels": "0.14.6",
+      "matplotlib": "3.10.8"
+    }
+  },
+  "analyses": {
+    "table1": {
+      "group_labels": [
+        "Control",
+        "Intervention"
+      ],
+      "notes": [
+        "Counts describe rows, not necessarily independent patients.",
+        "Continuous summaries use variable-wise nonmissing observations; SD is the sample SD (ddof=1).",
+        "Categorical cells are count/nonmissing denominator (percentage). Missing values are shown separately.",
+        "This descriptive table contains no hypothesis tests. Group order is recorded in group_labels."
+      ]
+    },
+    "linear": {
+      "n_input": 176,
+      "n_used": 172,
+      "n_dropped": 4,
+      "missing_by_column": {
+        "oks_post": 1,
+        "group": 0,
+        "oks_pre": 0,
+        "age": 0,
+        "bmi": 2,
+        "sex": 1
+      },
+      "outcome": "oks_post",
+      "predictors": [
+        "group",
+        "oks_pre",
+        "age",
+        "bmi",
+        "sex"
+      ],
+      "categorical": [
+        "group",
+        "sex"
+      ],
+      "categorical_reference": {
+        "group": "Control",
+        "sex": "Female"
+      },
+      "terms": [
+        "Intercept",
+        "group[Intervention]",
+        "oks_pre",
+        "age",
+        "bmi",
+        "sex[Male]"
+      ],
+      "covariance": "cluster",
+      "n_clusters": 156,
+      "subject_col": "patient_id",
+      "repeated_subjects": true,
+      "inference": "Student t",
+      "inference_df": 155.0,
+      "confidence_level": 0.95,
+      "cluster_small_sample_correction": true,
+      "r_squared": 0.6017221145421645,
+      "adjusted_r_squared": 0.5897257926910249,
+      "condition_number_scaled": 1.2615916482803264,
+      "notes": [
+        "Complete-case analysis; missing data were not imputed.",
+        "Coefficients describe associations. Covariance correction does not resolve confounding or model misspecification.",
+        "Inspect linearity, influential observations, and residuals before scientific interpretation.",
+        "Rows retain equal OLS weights; subjects contributing more rows receive more weight."
+      ]
+    }
+  },
+  "notes": [
+    "This report contains aggregate research results; review it before sharing.",
+    "Missingness is reported per analysis. Complete-case analysis can be biased when missingness is informative.",
+    "No normality test, p-value threshold, or automatic covariate selection determines the analysis method.",
+    "Repeated subject IDs detected. Descriptive counts refer to observations, not unique people; linear inference uses patient clusters when repeats remain after exclusions."
+  ],
+  "results": {
+    "table1": [
+      {
+        "variable": "N (rows)",
+        "level": "",
+        "overall": "176",
+        "group_1": "82",
+        "group_2": "94",
+        "missing_overall": 0,
+        "missing_group_1": 0,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "age",
+        "level": "mean (SD)",
+        "overall": "64.30 (6.76); n=176",
+        "group_1": "63.95 (6.81); n=82",
+        "group_2": "64.60 (6.73); n=94",
+        "missing_overall": 0,
+        "missing_group_1": 0,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "age",
+        "level": "median [Q1, Q3]",
+        "overall": "64.11 [60.12, 68.56]; n=176",
+        "group_1": "62.77 [59.20, 67.84]; n=82",
+        "group_2": "64.38 [61.08, 69.03]; n=94",
+        "missing_overall": 0,
+        "missing_group_1": 0,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "bmi",
+        "level": "mean (SD)",
+        "overall": "26.14 (2.97); n=174",
+        "group_1": "25.75 (2.98); n=82",
+        "group_2": "26.50 (2.94); n=92",
+        "missing_overall": 2,
+        "missing_group_1": 0,
+        "missing_group_2": 2
+      },
+      {
+        "variable": "bmi",
+        "level": "median [Q1, Q3]",
+        "overall": "26.13 [24.14, 27.97]; n=174",
+        "group_1": "26.07 [23.88, 27.41]; n=82",
+        "group_2": "26.20 [24.26, 28.41]; n=92",
+        "missing_overall": 2,
+        "missing_group_1": 0,
+        "missing_group_2": 2
+      },
+      {
+        "variable": "oks_pre",
+        "level": "mean (SD)",
+        "overall": "24.43 (6.20); n=176",
+        "group_1": "24.15 (6.27); n=82",
+        "group_2": "24.68 (6.16); n=94",
+        "missing_overall": 0,
+        "missing_group_1": 0,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "oks_pre",
+        "level": "median [Q1, Q3]",
+        "overall": "24.05 [20.03, 28.80]; n=176",
+        "group_1": "23.30 [19.84, 26.82]; n=82",
+        "group_2": "24.94 [20.19, 29.47]; n=94",
+        "missing_overall": 0,
+        "missing_group_1": 0,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "oks_post",
+        "level": "mean (SD)",
+        "overall": "31.67 (5.42); n=175",
+        "group_1": "30.64 (5.61); n=81",
+        "group_2": "32.56 (5.11); n=94",
+        "missing_overall": 1,
+        "missing_group_1": 1,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "oks_post",
+        "level": "median [Q1, Q3]",
+        "overall": "31.16 [28.33, 34.67]; n=175",
+        "group_1": "29.86 [27.44, 33.72]; n=81",
+        "group_2": "32.20 [29.27, 35.04]; n=94",
+        "missing_overall": 1,
+        "missing_group_1": 1,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "sex",
+        "level": "Female",
+        "overall": "89/175 (50.9%)",
+        "group_1": "38/81 (46.9%)",
+        "group_2": "51/94 (54.3%)",
+        "missing_overall": 1,
+        "missing_group_1": 1,
+        "missing_group_2": 0
+      },
+      {
+        "variable": "sex",
+        "level": "Male",
+        "overall": "86/175 (49.1%)",
+        "group_1": "43/81 (53.1%)",
+        "group_2": "43/94 (45.7%)",
+        "missing_overall": 1,
+        "missing_group_1": 1,
+        "missing_group_2": 0
+      }
+    ],
+    "regression": [
+      {
+        "term": "Intercept",
+        "estimate": 27.846776081717543,
+        "std_error": 3.4301299917575387,
+        "ci_low": 21.07094143815351,
+        "ci_high": 34.622610725281575,
+        "p_value": 1.370788650183905e-13
+      },
+      {
+        "term": "group[Intervention]",
+        "estimate": 1.6514386480077135,
+        "std_error": 0.5499153232578993,
+        "ci_low": 0.5651429952740454,
+        "ci_high": 2.7377343007413817,
+        "p_value": 0.003116857898469016
+      },
+      {
+        "term": "oks_pre",
+        "estimate": 0.6633484079354499,
+        "std_error": 0.04936491562864971,
+        "ci_low": 0.5658335888769938,
+        "ci_high": 0.7608632269939061,
+        "p_value": 8.725132333833276e-28
+      },
+      {
+        "term": "age",
+        "estimate": -0.13391604094575157,
+        "std_error": 0.03802509718816576,
+        "ci_low": -0.20903032858837428,
+        "ci_high": -0.05880175330312888,
+        "p_value": 0.0005633015320332834
+      },
+      {
+        "term": "bmi",
+        "estimate": -0.15881223168334113,
+        "std_error": 0.09006558286966289,
+        "ci_low": -0.33672662503505124,
+        "ci_high": 0.019102161668368978,
+        "p_value": 0.07982116674164873
+      },
+      {
+        "term": "sex[Male]",
+        "estimate": -0.9317560561522087,
+        "std_error": 0.5571607807584709,
+        "ci_low": -2.0323642923911125,
+        "ci_high": 0.16885218008669511,
+        "p_value": 0.09647686237140508
+      }
+    ]
+  }
+}
